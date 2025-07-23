@@ -4,8 +4,8 @@ class CategoriesController {
     async createCategory(req, res) {
         const { name, icon, user_id, parent_id } = req.body;
 
-        if (!name || !icon || !user_id) {
-            return res.status(400).json({ message: 'Name, icon, and user_id are required' });
+        if (!name || !user_id) {
+            return res.status(400).json({ message: 'Name, and user_id are required' });
         }
 
         try {
