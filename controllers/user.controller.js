@@ -57,7 +57,7 @@ class UserController {
         res.json('successfully deleted')
     }
 
-    async loginUser(req, res)  {
+    async loginUser(req, res) {
         const { email, password } = req.body;
 
         if (typeof email !== 'string' || typeof password !== 'string') {
@@ -67,7 +67,7 @@ class UserController {
         try {
             const user = await db.query(`SELECT * FROM users WHERE email = $1`, [email]);
             if (user.rows.length === 0) {
-                return res.status(400).json({ error: 'User not cd found' });
+                return res.status(400).json({ error: 'User not found' });
             }
 
             const validPassword = await bcrypt.compare(password, user.rows[0].password);
@@ -81,7 +81,8 @@ class UserController {
             refreshTokens.push(refreshToken);
             res.cookie('accessToken', accessToken, { httpOnly: false, secure: false, sameSite: 'Strict', path: '/' });
             res.cookie('refreshToken', refreshToken, { httpOnly: true });
-            res.json({ message: 'Login successful' });
+
+            res.json({ message: 'Login successful', accessToken, userId: user.rows[0].id });
         } catch (err) {
             console.error('Error logging in user:', err);
             res.status(500).json({ error: err.message });
