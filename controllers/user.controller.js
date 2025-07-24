@@ -193,11 +193,11 @@ class UserController {
                 },
             });
 
-            const resetLink = `https://bonum-back-production.up.railway.app/reset-password?token=${token}`;
+            const resetLink = `https://dmitrygomberg.github.io/bonum-front/#/reset-password?token=${token}`;
             await transporter.sendMail({
                 to: email,
-                subject: 'Password Reset',
-                text: `Click the link to reset your password: ${resetLink}`,
+                subject: 'Сброс пароля Bonum',
+                text: `Нажмите на ссылку чтобы сбросить пароль: ${resetLink}`,
             });
 
             res.json({ message: 'Password reset email sent' });
