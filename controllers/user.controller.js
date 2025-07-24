@@ -193,7 +193,7 @@ class UserController {
                 },
             });
 
-            const resetLink = `http://localhost:5173/reset-password?token=${token}`;
+            const resetLink = `https://bonum-back-production.up.railway.app/reset-password?token=${token}`;
             await transporter.sendMail({
                 to: email,
                 subject: 'Password Reset',
